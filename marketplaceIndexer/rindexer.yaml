@@ -1,40 +1,37 @@
 name: marketplaceIndexer
 project_type: no-code
-config: {}
-timestamps: null
 networks:
-- name: anvil
-  chain_id: 31337
-  rpc: http://127.0.0.1:8545
+# - name: anvil
+#   chain_id: 31337
+#   rpc: http://127.0.0.1:8545 # Can use environment variables too!
 - name: ethereum:sepolia
   chain_id: 11155111
   rpc: ${SEPOLIA_RPC_URL}
 storage:
   postgres:
     enabled: true
-    db_name: ${DB_NAME}
-    user: ${DB_USER}
-    password: ${DB_PASSWORD}
+    url: ${DATABASE_URL}
     host: ${DB_HOST}
     port: ${DB_PORT}
-  csv:
-    enabled: true
-    path: ./generated_csv
+    database: ${DB_NAME}
+    user: ${DB_USER}
+    password: ${DB_PASSWORD}
+  # csv:
+  #   enabled: true
+  #   path: ./generated_csv
 native_transfers:
   enabled: false
 contracts:
 - name: NftMarketplace
   details:
-  - network: anvil
-    address: 0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
-    start_block: '0'
+  # - network: anvil
+  #   address: 0x7a2088a1bFc9d81c55368AE168C2C02570cB814F
+  #   start_block: '0'
   - network: ethereum:sepolia
     address: 0x79adCA9feB6bB753d7928731aba8529beCd3ED94
     start_block: '9711451'
   abi: ./abis/NftMarketplace.abi.json
   include_events:
-  - name: ItemListed
-  - name: ItemCanceled
-  - name: ItemBought
-global:
-  health_port: 0
+  - ItemListed
+  - ItemCanceled
+  - ItemBought
