@@ -1,0 +1,11 @@
+{
+  "name": "nft-marketplace-indexer",
+  "version": "1.0.0",
+  "description": "NFT Marketplace Indexer using Rindexer",
+  "scripts": {
+    "start": "bash start.sh"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

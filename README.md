@@ -8,14 +8,24 @@ The final project for the Cyfrin Web3 Full Stack crash course, where we introduc
 5. USDC payment
 6. Gashawk
 
-This is what the final project could/should look like!
-
-# NFT Marketplace
-
 A full-stack NFT marketplace with listing, buying, and compliance features built with Next.js, TypeScript, and Wagmi.
 
+# STARTING CODEBASE!
+
+We will need to implement:
+- Update the home page
+  - Add all recently listed NFTs
+  - Indexer
+- Compliance Engine
+
+If you wish to see what the final product looks like, head over to the `main` branch!
+
+
+# Table of Contents
+
 - [NFT Marketplace](#nft-marketplace)
-- [NFT Marketplace](#nft-marketplace-1)
+- [STARTING CODEBASE!](#starting-codebase)
+- [Table of Contents](#table-of-contents)
 - [Getting Started](#getting-started)
   - [Requirements](#requirements)
     - [Environment Variables](#environment-variables)
@@ -44,6 +54,7 @@ A full-stack NFT marketplace with listing, buying, and compliance features built
     - You'll know you've installed it right if you can run `docker --version` and get a response like `Docker version 27.4.0, build bde2b89`
 - [rindexer](https://github.com/joshstevens19/rindexer)
     - ou'll know you've installed it right if you can run `rindexer --version` and get a response like `rindexer 0.15.2`
+
 
 ### Environment Variables
 
