@@ -128,13 +128,13 @@ export default function NFTContractForm({ contractAddress }: NFTContractFormProp
 
     // Effect to track the minted NFT from transaction receipt
     useEffect(() => {
-        console.dir(dataFromBakeReceipt)
-        if (isBakeConfirmed && bakeCakeHash) {
+        if (isBakeConfirmed && dataFromBakeReceipt?.logs?.[1]?.topics?.[1]) {
+            console.dir(dataFromBakeReceipt)
             const hexTokenIdFromReceipt = dataFromBakeReceipt.logs[1].topics[1]
-            const intTokenIdFromReceipt = parseInt(hexTokenIdFromReceipt!, 16)
+            const intTokenIdFromReceipt = parseInt(hexTokenIdFromReceipt, 16)
             setLastMintedTokenId(`TokenID: ${intTokenIdFromReceipt}`)
         }
-    }, [isBakeConfirmed, bakeCakeHash])
+    }, [isBakeConfirmed, dataFromBakeReceipt])
 
     // Helper function for button content
     function getBakeCakeButtonContent() {

@@ -55,6 +55,7 @@ If you wish to see what the final product looks like, head over to the `main` br
 - [rindexer](https://github.com/joshstevens19/rindexer)
     - ou'll know you've installed it right if you can run `rindexer --version` and get a response like `rindexer 0.15.2`
 
+
 ### Environment Variables
 
 Create a `.env.local` file with the following environment variables:
