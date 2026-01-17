@@ -1,159 +1,197 @@
-# NFT Marketplace 
+# NFT Marketplace - Full Stack Web3 Application
 
-The final project for the Cyfrin Web3 Full Stack crash course, where we introduce:
+A production-ready, full-stack NFT marketplace deployed on Sepolia testnet. Built with Next.js, TypeScript, Solidity, and deployed on Render. This marketplace enables users to list, buy, and trade NFTs with real-time blockchain indexing.
 
-1. Indexing (rindexer)
-2. Fleek CLI
-4. Compliance Engine
-5. USDC payment
-6. Gashawk
+## 🌟 Live Demo
 
-A full-stack NFT marketplace with listing, buying, and compliance features built with Next.js, TypeScript, and Wagmi.
+- **Frontend**: [Your Vercel/Render URL here]
+- **Indexer API**: [Your Render Indexer URL]
+- **Blockchain Network**: Sepolia Testnet
+- **Smart Contract**: `0x79adCA9feB6bB753d7928731aba8529beCd3ED94`
 
-# STARTING CODEBASE!
+## 🚀 Features
 
-We will need to implement:
-- Update the home page
-  - Add all recently listed NFTs
-  - Indexer
-- Compliance Engine
+- **NFT Minting**: Create and mint new NFTs directly from the interface
+- **NFT Listing**: List your NFTs for sale with custom pricing
+- **NFT Trading**: Buy and sell NFTs seamlessly on the marketplace
+- **Real-time Indexing**: Blockchain events indexed using rindexer for instant updates
+- **Wallet Integration**: Connect with MetaMask and other Web3 wallets via WalletConnect
+- **Responsive Design**: Mobile-friendly interface built with modern UI components
+- **Production Deployment**: Fully deployed backend indexer on Render with PostgreSQL
 
-If you wish to see what the final product looks like, head over to the `main` branch!
+## 🛠️ Tech Stack
 
+### Frontend
+- **Next.js** - React framework for production
+- **TypeScript** - Type-safe development
+- **Wagmi** - React hooks for Ethereum
+- **TailwindCSS** - Utility-first CSS framework
+- **WalletConnect** - Multi-wallet support
 
-# Table of Contents
+### Backend
+- **Solidity** - Smart contract development
+- **Hardhat/Foundry** - Smart contract deployment
+- **rindexer** - Blockchain event indexing
+- **PostgreSQL** - Database for indexed data
+- **GraphQL** - API for querying indexed events
 
-- [NFT Marketplace](#nft-marketplace)
-- [STARTING CODEBASE!](#starting-codebase)
-- [Table of Contents](#table-of-contents)
-- [Getting Started](#getting-started)
-  - [Requirements](#requirements)
-    - [Environment Variables](#environment-variables)
-  - [Setup](#setup)
-    - [Add Anvil to your metamask](#add-anvil-to-your-metamask)
-    - [Add Anvil accounts to your Metamask](#add-anvil-accounts-to-your-metamask)
-    - [Docker .env](#docker-env)
-  - [Running the Application](#running-the-application)
-- [Database Reset](#database-reset)
-- [Features](#features)
-- [Addresses for testing](#addresses-for-testing)
+### Deployment
+- **Render** - Backend indexer hosting
+- **Vercel/Render** - Frontend hosting
+- **Sepolia** - Ethereum testnet
 
-# Getting Started
+## 📋 Prerequisites
 
-## Requirements
+Before running this project, ensure you have:
 
-- [node](https://nodejs.org/en/download)
-    - You'll know you've installed it right if you can run `node --version` and get a response like `v18.0.0`
-- [pnpm](https://pnpm.io/)
-    - You'll know you've installed it right if you can run `pnpm --version` and get a response like `8.0.0`
-- [git](https://git-scm.com/downloads)
-    - You'll know you've installed it right if you can run `git --version` and get a response like `git version 2.33.0`
-- [foundry/anvil](https://book.getfoundry.sh/)
-    - You'll know you've installed it right if you can run `anvil --version` and get a response like `anvil Version: 1.0.0-stable`
-- [docker](https://www.docker.com/get-started/)
-    - You'll know you've installed it right if you can run `docker --version` and get a response like `Docker version 27.4.0, build bde2b89`
-- [rindexer](https://github.com/joshstevens19/rindexer)
-    - ou'll know you've installed it right if you can run `rindexer --version` and get a response like `rindexer 0.15.2`
+- [Node.js](https://nodejs.org/) (v18 or higher)
+- [pnpm](https://pnpm.io/) package manager
+- [Git](https://git-scm.com/)
+- [MetaMask](https://metamask.io/) browser extension
+- Sepolia testnet ETH ([faucet](https://sepoliafaucet.com/))
 
+## 🔧 Environment Variables
 
-### Environment Variables
+Create a `.env.local` file in the root directory:
 
-Create a `.env.local` file with the following environment variables:
+```env
+# WalletConnect Project ID (get from https://cloud.walletconnect.com/)
+NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_walletconnect_project_id
 
-```
-NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_project_id
-GRAPHQL_API_URL=http://localhost:3001/graphql
+# GraphQL API URL (your deployed Render indexer URL)
+GRAPHQL_API_URL=https://your-indexer-url.onrender.com/graphql
+
+# Sepolia RPC URL (get from https://www.alchemy.com/)
+NEXT_PUBLIC_SEPOLIA_RPC_URL=your_alchemy_sepolia_rpc_url
+
+# Smart Contract Address
+NEXT_PUBLIC_NFT_MARKETPLACE_ADDRESS=0x79adCA9feB6bB753d7928731aba8529beCd3ED94
+
+# Optional: Compliance features
 ENABLE_COMPLIANCE_CHECK=false
-CIRCLE_API_KEY=TEST_API_KEY
+CIRCLE_API_KEY=your_circle_api_key
 ```
 
-- `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID`: Get this from [WalletConnect Cloud](https://cloud.walletconnect.com/)
-- `GRAPHQL_API_URL`: Points to your local indexer GraphQL endpoint
-- `ENABLE_COMPLIANCE_CHECK`: To enable compliance checks, set this to `true`. If you set this to false, you don't need the `CIRCLE_API_KEY`
-- `CIRCLE_API_KEY`: Get this from [Circle Developer Portal](https://console.circle.com/api-keys)
+## 📦 Installation
 
-## Setup
-
+1. **Clone the repository**
 ```bash
-git clone https://github.com/cyfrin/ts-nft-marketplace-cu
-cd nft-marketplace
+git clone https://github.com/0xAbiara/NFT-Marketplace.git
+cd NFT-Marketplace
+```
+
+2. **Install dependencies**
+```bash
 pnpm install
 ```
 
-### Add Anvil to your metamask
-
-Add the following network to your metamask:
-- Name: Anvil
-- RPC URL: http://127.0.0.1:8545
-- Chain ID: 31337
-- Currency Symbol: ETH
-
-### Add Anvil accounts to your Metamask
-
-```
-Private Keys
-==================
-
-(0) 0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80 # This one
-(9) 0x2a871d0798f97d79848a013d4936a73bf4cc922c825d33c1cf7073dff6d409c6 # This one
-```
-
-Add private keys `0` and `9` to your Metamask, these will have NFTs already loaded when you run `pnpm anvil` later. 
-
-### Docker .env
-
-For working with a postgres DB, add a `.env` file to `./marketplaceIndexer/.env`:
-
-```
-DATABASE_URL=postgresql://postgres:rindexer@localhost:5440/postgres
-POSTGRES_PASSWORD=rindexer
-```
-
-This will work with the default commands we run below. If you wish to change your database, you may change your endpoints.
-
-## Running the Application
-
-The application requires three components running in parallel:
-
-- Local Ethereum blockchain (anvil), this will come with some blockchain state already loaded. Including contracts, tokens, and NFTs in the accounts you added to Metamask above.
-- Blockchain indexer
-- Next.js application
-
+3. **Set up environment variables**
 ```bash
-pnpm anvil
-pnpm indexer
-pnpm run dev
+cp .env.example .env.local
+# Edit .env.local with your values
 ```
 
-In your Metamask now, select account 0 which you imported from the step above, and add the following NFT with tokenID 0:
-
-```
-0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0
-```
-
-You should see the NFT in your metamask. Note: This will only work while `pnpm anvil` is running!
-
-# Database Reset
-If you need to reset the indexer database:
-
+4. **Run the development server**
 ```bash
-pnpm run reset-indexer
+pnpm dev
 ```
 
-This will stop the indexer, remove the volume, and restart it.
+5. **Open your browser**
+Navigate to `http://localhost:3000`
 
-# Features
+## 🌐 Deployment
 
-- NFT Minting: Create new NFTs with the CakeNFT contract
-- NFT Listing: List your NFTs for sale on the marketplace
-- NFT Buying: Purchase NFTs that others have listed
-- Recently Listed NFTs: View the most recent NFTs available for purchase
-- Address Compliance: Integrated with Circle's compliance API to screen addresses
-- Wallet Integration: Connect with MetaMask, Rainbow, and other wallets via WalletConnect
+### Backend Indexer (Render)
 
-# Addresses for testing
+The blockchain indexer is deployed on Render and continuously syncs events from the Sepolia blockchain.
 
-- usdc: "0x5FbDB2315678afecb367f032d93F642f64180aa3"
-- nftMarketplace: "0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512"
-- cakeNft: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
-- moodNft: "0xCf7Ed3AccA5a467e9e704C703E8D87F634fB0Fc9"
+**Environment Variables on Render:**
+- `DATABASE_URL` - PostgreSQL connection string
+- `SEPOLIA_RPC_URL` - Alchemy/Infura Sepolia RPC endpoint
+- `DB_HOST`, `DB_NAME`, `DB_USER`, `DB_PASSWORD`, `DB_PORT` - Database credentials
+
+**Docker Command:**
+```bash
+rindexer start all
+```
+
+### Frontend Deployment
+
+Deploy to Vercel with one click:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/0xAbiara/NFT-Marketplace)
+
+Or deploy manually:
+```bash
+pnpm build
+pnpm start
+```
+
+## 🎯 How to Use
+
+1. **Connect Your Wallet**
+   - Click "Connect Wallet" in the navigation
+   - Select MetaMask or your preferred wallet
+   - Switch to Sepolia testnet
+
+2. **Get Test ETH**
+   - Visit [Sepolia Faucet](https://sepoliafaucet.com/)
+   - Request test ETH for transactions
+
+3. **Mint an NFT** (if available)
+   - Navigate to the Mint page
+   - Upload your image and metadata
+   - Pay gas fees to mint
+
+4. **List Your NFT**
+   - Go to "My NFTs"
+   - Click "List for Sale"
+   - Set your price and confirm
+
+5. **Buy NFTs**
+   - Browse the marketplace
+   - Click on any listed NFT
+   - Click "Buy" and confirm the transaction
+
+## 📊 Project Structure
+
+```
+NFT-Marketplace/
+├── marketplaceIndexer/      # Blockchain indexer
+│   ├── rindexer.yaml       # Indexer configuration
+│   ├── abis/               # Contract ABIs
+│   └── Dockerfile          # Docker config for Render
+├── src/
+│   ├── app/                # Next.js app directory
+│   ├── components/         # React components
+│   ├── hooks/              # Custom React hooks
+│   ├── lib/                # Utility functions
+│   └── constants.ts        # Contract addresses & configs
+├── public/                 # Static assets
+└── package.json
+```
+
+## 🔐 Smart Contracts
+
+**Network**: Sepolia Testnet  
+**Contract Address**: `0x79adCA9feB6bB753d7928731aba8529beCd3ED94`  
+**Start Block**: `9711451`
+
+**Events Indexed:**
+- `ItemListed` - When an NFT is listed for sale
+- `ItemBought` - When an NFT is purchased
+- `ItemCanceled` - When a listing is canceled
+
+## 🐛 Troubleshooting
+
+**Issue**: Transactions failing
+- **Solution**: Ensure you have enough Sepolia ETH for gas fees
+
+**Issue**: NFTs not showing up
+- **Solution**: Wait for the indexer to sync (check Render logs)
+
+**Issue**: Wallet not connecting
+- **Solution**: Make sure you're on Sepolia testnet in MetaMask
+
+**Issue**: GraphQL errors
+- **Solution
