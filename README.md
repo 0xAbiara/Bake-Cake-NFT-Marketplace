@@ -4,8 +4,8 @@ A production-ready, full-stack NFT marketplace deployed on Sepolia testnet. Buil
 
 ## 🌟 Live Demo
 
-- **Frontend**: [Your Vercel/Render URL here]
-- **Indexer API**: [Your Render Indexer URL]
+- **Frontend**: https://bake-cake-nftmarketplace.netlify.app/
+- **Indexer API**: https://nft-marketplace-indexer.onrender.com
 - **Blockchain Network**: Sepolia Testnet
 - **Smart Contract**: `0x79adCA9feB6bB753d7928731aba8529beCd3ED94`
 
